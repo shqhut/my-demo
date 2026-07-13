@@ -9,6 +9,13 @@ spring:
   redis:
     host: localhost
     port: 6379
+    timeout: 3000ms
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000  # 缓存过期时间10分钟（毫秒）
+      cache-null-values: false  # 是否缓存空值
+      use-key-prefix: true  # 使用key前缀
   servlet:
     multipart:
       # Enable multipart uploads
@@ -20,14 +27,14 @@ spring:
       # Max Request Size
       max-request-size: 215MB
   datasource:
-    url: jdbc:mysql://localhost:3306/your_database?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  mybatis:
-    mapper-locations: classpath:mapper/*.xml   # Mapper XML文件路径
-    type-aliases-package: com.example.demo.entity  # 实体类包路径
-    configuration:
-      map-underscore-to-camel-case: true  # 驼峰命名映射
-      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 开启SQL日志（开发环境）
+mybatis:
+  mapper-locations: classpath:mapper/*.xml   # Mapper XML文件路径
+  type-aliases-package: com.shq.demo.entity  # 实体类包路径
+  configuration:
+    map-underscore-to-camel-case: true  # 驼峰命名映射
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 开启SQL日志（开发环境）
