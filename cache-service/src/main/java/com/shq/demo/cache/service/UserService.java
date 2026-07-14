@@ -1,6 +1,6 @@
-package com.shq.demo.demo.service;
+package com.shq.demo.cache.service;
 
-import com.shq.demo.entity.User;
+import com.shq.demo.common.entity.User;
 
 import java.util.List;
 

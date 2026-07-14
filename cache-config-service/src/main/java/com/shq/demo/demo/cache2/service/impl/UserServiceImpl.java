@@ -1,10 +1,9 @@
-package com.shq.demo.service.impl;
+package com.shq.demo.demo.cache2.service.impl;
 
-import com.shq.demo.dao.UserDao;
-import com.shq.demo.entity.User;
-import com.shq.demo.service.UserService;
+import com.shq.demo.common.dao.UserDao;
+import com.shq.demo.common.entity.User;
+import com.shq.demo.demo.cache2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +15,6 @@ public class UserServiceImpl implements UserService {
     UserDao userDao;
 
     @Override
-    @Cacheable(value = "user", key = "'all'")
     public List<User> selectAll() {
         return userDao.selectAll();
     }

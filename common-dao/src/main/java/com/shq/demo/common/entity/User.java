@@ -1,4 +1,4 @@
-package com.shq.demo.entity;
+package com.shq.demo.common.entity;
 
 import lombok.Data;
 

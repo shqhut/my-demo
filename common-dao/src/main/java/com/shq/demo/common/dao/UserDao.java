@@ -1,6 +1,6 @@
-package com.shq.demo.demo.dao;
+package com.shq.demo.common.dao;
 
-import com.shq.demo.entity.User;
+import com.shq.demo.common.entity.User;
 
 import java.util.List;
 

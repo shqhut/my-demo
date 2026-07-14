@@ -1,8 +1,8 @@
-package com.shq.demo.demo.service.impl;
+package com.shq.demo.cache.service.impl;
 
-import com.shq.demo.dao.UserDao;
-import com.shq.demo.entity.User;
-import com.shq.demo.service.UserService;
+import com.shq.demo.cache.service.UserService;
+import com.shq.demo.common.dao.UserDao;
+import com.shq.demo.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

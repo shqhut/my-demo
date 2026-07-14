@@ -1,4 +1,4 @@
-package com.shq.demo;
+package com.shq.demo.cache;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
 @Slf4j
-@MapperScan("com.shq.demo.dao")
+@MapperScan("com.shq.demo.common.dao")
 @EnableCaching  // 开启缓存
 public class MyDemoApplication {
 
