@@ -3,16 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.shq</groupId>
+        <artifactId>my-demo</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-    <groupId>com.shq</groupId>
-    <artifactId>my-demo</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <modules>
-        <module>common-dao</module>
-        <module>cache-service</module>
-        <module>cache-config-service</module>
-    </modules>
+    <artifactId>common-dao</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,18 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.4</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -47,14 +33,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.30</version> <!-- 8.0.30及以下用旧坐标，选一个8.x版本即可 -->
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
     </dependencies>
 

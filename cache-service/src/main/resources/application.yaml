@@ -1,5 +1,5 @@
 server:
-  port: 19483
+  port: 19485
   servlet:
     context-path: /jw
   compression:

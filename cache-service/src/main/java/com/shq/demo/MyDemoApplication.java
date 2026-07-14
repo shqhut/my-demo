@@ -16,4 +16,5 @@ public class MyDemoApplication {
         SpringApplication.run(MyDemoApplication.class, args);
         log.info("MyDemoApplication服务启动成功");
     }
+
 }
