@@ -10,10 +10,10 @@ import org.springframework.cache.annotation.EnableCaching;
 @Slf4j
 @MapperScan("com.shq.demo.common.dao")
 @EnableCaching  // 开启缓存
-public class MyDemoApplication {
+public class CacheApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MyDemoApplication.class, args);
+        SpringApplication.run(CacheApplication.class, args);
         log.info("MyDemoApplication服务启动成功");
     }
 
