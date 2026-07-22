@@ -1,4 +1,4 @@
-package com.shq.demo.demo.cache2.service;
+package com.shq.demo.cache2.service;
 
 import com.shq.demo.common.entity.User;
 

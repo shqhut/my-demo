@@ -1,6 +1,6 @@
-package com.shq.demo.demo.cache2.controller;
+package com.shq.demo.cache2.controller;
 
-import com.shq.demo.demo.cache2.service.UserService;
+import com.shq.demo.cache2.service.UserService;
 import com.shq.demo.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

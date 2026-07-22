@@ -13,6 +13,8 @@
         <module>cache-service</module>
         <module>cache-config-service</module>
         <module>pg-demo</module>
+        <module>ioc-demo</module>
+        <module>aop-test</module>
     </modules>
 
     <properties>

@@ -1,4 +1,4 @@
-package com.shq.demo.demo.cache2;
+package com.shq.demo.cache2;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
