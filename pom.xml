@@ -13,6 +13,8 @@
         <module>cache-service</module>
         <module>cache-config-service</module>
         <module>bean-config-test</module>
+        <module>pg-demo</module>
+        <module>aop-test</module>
     </modules>
 
     <properties>
