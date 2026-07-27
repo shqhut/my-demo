@@ -12,6 +12,7 @@
         <module>common-dao</module>
         <module>cache-service</module>
         <module>cache-config-service</module>
+        <module>bean-config-test</module>
     </modules>
 
     <properties>
