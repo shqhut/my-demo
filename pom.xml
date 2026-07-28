@@ -12,8 +12,8 @@
         <module>common-dao</module>
         <module>cache-service</module>
         <module>cache-config-service</module>
+        <module>bean-config-test</module>
         <module>pg-demo</module>
-        <module>ioc-demo</module>
         <module>aop-test</module>
         <module>base64-handle</module>
     </modules>
