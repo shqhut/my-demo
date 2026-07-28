@@ -1,0 +1,11 @@
+app:
+  photo:
+    # 输出目录 - 相对于项目根目录
+    output-dir: ./output/photos
+
+    # CSV文件 - 放在 resources 目录下
+    csv-file-path: classpath:input/12.csv
+
+    multi-thread-enabled: true
+    max-pool-size: 20              # 最大线程数
+    queue-capacity: 5000           # 队列容量设大，能容纳所有任务

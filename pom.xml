@@ -15,6 +15,7 @@
         <module>pg-demo</module>
         <module>ioc-demo</module>
         <module>aop-test</module>
+        <module>base64-handle</module>
     </modules>
 
     <properties>
