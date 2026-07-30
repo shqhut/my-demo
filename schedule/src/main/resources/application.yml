@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+# 自定义配置：将 cron 表达式外置到配置文件，方便修改
+task:
+  # 每 10 秒执行一次（配置示例）
+  simple-cron: "*/10 * * * * ?"
+  # 每天凌晨 2 点执行
+  daily-cron: "0 0 2 * * ?"
+  # 每 5 分钟执行
+  every-5min: "0 */5 * * * ?"
+
+# 日志级别（方便观察任务执行）
+#logging:
+#  level:
+#    com.shq.demo.schedule: debug
+#    org.springframework.scheduling: debug

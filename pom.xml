@@ -16,6 +16,7 @@
         <module>pg-demo</module>
         <module>aop-test</module>
         <module>base64-handle</module>
+        <module>schedule</module>
     </modules>
 
     <properties>
