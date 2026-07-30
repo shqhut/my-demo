@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 /**
  * 基础定时任务示例
@@ -77,10 +78,15 @@ public class BasicScheduledJobs {
      *
      */
     // "*/10 * * * * ?"  → 秒:每10秒, 分:每分, 时:每时, 日:每日, 月:每月, 周:不限定
-    @Scheduled(cron = "*/10 * * * * ?")
+    @Scheduled(cron = "*/5 * * * * ?")
     public void cronTask() {
+        UUID uuid = UUID.randomUUID();
+        log.info("当前任务编码为：{}", uuid);
         log.info("[cron      ] 执行时间: {}, 线程: {}",
                 LocalDateTime.now().format(FMT), Thread.currentThread().getName());
+        log.info("模拟定时任务耗时，线程: {}", Thread.currentThread().getName());
+        sleep(6000);
+        log.info("任务执行完成，编码为：{}",uuid);
     }
 
     /**
