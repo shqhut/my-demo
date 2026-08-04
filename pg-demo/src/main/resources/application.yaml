@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://114.67.88.224:15432/data_kss
+    url: jdbc:postgresql://172.2.0.111:5432/pdjw
     username: postgres
-    password: Wayz1234
+    password: wayzgipostgresql
     driver-class-name: org.postgresql.Driver
 
     hikari:
