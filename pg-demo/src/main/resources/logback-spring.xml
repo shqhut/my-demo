@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <!-- ==================== Spring Boot 属性引用 ==================== -->
+    <!-- 读取 application.yml 中的 spring.application.name -->
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultValue="unknown-app"/>
+
+    <!-- 读取 active profile -->
+    <springProperty scope="context" name="ACTIVE_PROFILE" source="spring.profiles.active" defaultValue="dev"/>
+
+    <!-- ==================== 日志目录 ==================== -->
+    <property name="LOG_HOME" value="./logs/${APP_NAME}"/>
+
+    <!-- ==================== 1. 控制台输出（带颜色，适合开发） ==================== -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--
+                格式说明：
+                %d{...}       : 日期时间
+                [%thread]     : 线程名称
+                %highlight(...): 根据日志级别显示不同颜色
+                %-5level      : 日志级别（左对齐，宽度5）
+                %cyan(...)    : 青色字体
+                %logger{36}   : Logger 名称（最多36个字符）
+                %X{...}       : MDC 中的值
+                %msg          : 日志消息
+                %n            : 换行
+            -->
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) [%X{requestId:-no-mdc}] - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- ==================== 2. 文件输出（JSON 结构化格式） ==================== -->
+    <appender name="FILE_JSON"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <!-- 当前正在写入的文件 -->
+        <file>${LOG_HOME}/app.json.log</file>
+
+        <!-- 按日期和大小滚动 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+
+            <!--
+                最终生成：
+                app.2026-08-05.0.json.gz
+                app.2026-08-05.1.json.gz
+            -->
+            <fileNamePattern>
+                ${LOG_HOME}/app.%d{yyyy-MM-dd}.%i.json.gz
+            </fileNamePattern>
+
+            <!-- 单个日志文件最大 200MB -->
+            <maxFileSize>200MB</maxFileSize>
+
+            <!-- 最多保留 30 天 -->
+            <maxHistory>30</maxHistory>
+
+            <!-- 所有历史日志总量不超过 5GB -->
+            <totalSizeCap>5GB</totalSizeCap>
+
+            <!-- 启动时清理超过保留策略的历史文件 -->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+
+                <!-- 日志时间 -->
+                <timestamp>
+                    <fieldName>@timestamp</fieldName>
+                    <timeZone>UTC</timeZone>
+                    <pattern>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</pattern>
+                </timestamp>
+
+                <!-- 每条日志的唯一标识 -->
+                <uuid>
+                    <fieldName>event_id</fieldName>
+                    <strategy>random</strategy>
+                </uuid>
+
+                <!-- 应用名，值来自 contextName -->
+                <contextName>
+                    <fieldName>app_name</fieldName>
+                </contextName>
+
+                <!-- 自定义固定字段 -->
+                <pattern>
+                    <pattern>
+                        {
+                        "profile": "${ACTIVE_PROFILE}"
+                        }
+                    </pattern>
+                </pattern>
+
+                <!-- 日志级别 -->
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+
+                <!-- 线程名称 -->
+                <threadName>
+                    <fieldName>thread_name</fieldName>
+                </threadName>
+
+                <!-- Logger 名称 -->
+                <loggerName>
+                    <fieldName>logger_name</fieldName>
+                </loggerName>
+
+                <!-- 日志正文 -->
+                <message>
+                    <fieldName>message</fieldName>
+                </message>
+
+                <!--
+                    输出所有 MDC 字段。
+                    例如 requestId、traceId、userId 等。
+                    无需配置 includeAll，默认就是输出全部 MDC。
+                -->
+                <mdc/>
+
+                <!-- 支持 StructuredArguments -->
+                <arguments>
+                    <includeNonStructuredArguments>false</includeNonStructuredArguments>
+                </arguments>
+
+                <!-- 支持 Logstash Marker -->
+                <logstashMarkers/>
+
+<!--                &lt;!&ndash; 调用者信息 &ndash;&gt;-->
+<!--                <callerData>-->
+<!--                    <classFieldName>caller_class</classFieldName>-->
+<!--                    <methodFieldName>caller_method</methodFieldName>-->
+<!--                    <fileFieldName>caller_file</fileFieldName>-->
+<!--                    <lineFieldName>caller_line</lineFieldName>-->
+<!--                </callerData>-->
+
+                <!-- 异常堆栈 -->
+                <stackTrace>
+                    <fieldName>stack_trace</fieldName>
+
+                    <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+
+                        <!-- 每个异常最多保留 80 层 -->
+                        <maxDepthPerThrowable>80</maxDepthPerThrowable>
+
+                        <!-- 异常堆栈最大字符数 -->
+                        <maxLength>2048</maxLength>
+
+                        <!-- 根异常优先 -->
+                        <rootCauseFirst>true</rootCauseFirst>
+
+                        <!-- 排除常见、价值较低的调用栈 -->
+                        <exclude>^sun\.reflect\..*</exclude>
+                        <exclude>^java\.lang\.reflect\..*</exclude>
+                        <exclude>^org\.apache\.catalina\..*</exclude>
+                        <exclude>^org\.springframework\.cglib\..*</exclude>
+                        <exclude>^org\.springframework\.aop\..*</exclude>
+                    </throwableConverter>
+                </stackTrace>
+
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- 设置根日志级别 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_JSON"/>
+    </root>
+
+    <!-- 可以为特定包设置单独的日志级别 -->
+<!--    <logger name="com.yourcompany" level="DEBUG" additivity="false">-->
+<!--        <appender-ref ref="CONSOLE"/>-->
+<!--        <appender-ref ref="FILE_JSON"/>-->
+<!--    </logger>-->
+
+</configuration>

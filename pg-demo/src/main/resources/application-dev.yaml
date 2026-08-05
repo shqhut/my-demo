@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://172.2.0.111:5432/pdjw
+    username: postgres
+    password: wayzgipostgresql
+    driver-class-name: org.postgresql.Driver
+
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 10000
+
+# MyBatis配置
+mybatis:
+  # mapper XML文件位置
+  mapper-locations: classpath:mapper/*.xml
+  # 实体类包路径
+  type-aliases-package: com.shq.demo.pg
+  configuration:
+    # 开启驼峰命名转换
+    map-underscore-to-camel-case: true
+    # 打印SQL日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
